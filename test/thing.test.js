@@ -10,13 +10,19 @@ describe('thing', function() {
 
         var aliases = [alias1,alias2]
         var nonce = Math.floor(Math.random()*16777215).toString(16);
-        console.log(nonce)
-        iotlib.thing({
+        console.log("nonce:" + nonce)
+        iotlib.registrant({
             user: user,
-            nonce: nonce,
+            registrantName: 'Martha',
             data: 'data',
-            aliases: aliases,
-            spec: 'spec',
+        }).then(function() {
+            return iotlib.thing({
+                user: user,
+                nonce: nonce,
+                data: 'data',
+                aliases: aliases,
+                spec: 'spec',
+            })
         }).then(function() {
             console.log('done');
             done();
